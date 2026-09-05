@@ -1,0 +1,35 @@
+request:
+
+  github_username: "chandraprakashanandakumar"
+
+  owner_name: "Test Developer"
+
+  email: "your-email@example.com"
+
+  github_repository:
+    url: "https://github.com/ChandraprakashAnandakumar/dev-cv.in"
+    owner_confirmed: true
+
+  vercel:
+    deployment_url: "https://portpholeo.vercel.app/"
+    ownership_confirmed: true
+
+  subdomain:
+    requested: "chandraprakashanandakumar.dev-cv.in"
+    type: "portfolio"
+
+  project:
+    name: "Developer Portfolio Test"
+    description: "Test portfolio for validating the dev-cv.in automated request system."
+    category: "portfolio"
+
+  agreements:
+    github_ownership: true
+    vercel_ownership: true
+    dns_only: true
+    deployment_responsibility: true
+    acceptable_use: true
+    removal_policy: true
+    automated_verification: true
+    one_subdomain_per_request: true
+    terms: true
