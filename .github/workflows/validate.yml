@@ -49,11 +49,32 @@ jobs:
 
       - name: Test existing domain
         run: |
-          if python scripts/check_availability.py example; then
+          cat > domains/ci-test.json <<'EOF'
+          {
+            "subdomain": "ci-test",
+            "owner": {
+              "github": "test-user"
+            },
+            "target": {
+              "type": "CNAME",
+              "value": "example.com"
+            },
+            "project": {
+              "name": "CI Test",
+              "description": "Temporary domain used only during CI validation."
+            }
+          }
+          EOF
+
+          if python scripts/check_availability.py ci-test; then
             echo "ERROR: Existing domain was incorrectly accepted."
+            rm -f domains/ci-test.json
             exit 1
           fi
+
+          rm -f domains/ci-test.json
 
       - name: Validation complete
         run: |
           echo "All dev-cv.in validation checks passed."
+
