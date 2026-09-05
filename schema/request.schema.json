@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "dev-cv.in Subdomain Request",
+  "type": "object",
+  "required": [
+    "github_username",
+    "subdomain",
+    "target",
+    "project",
+    "terms"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "github_username": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]+$"
+    },
+    "subdomain": {
+      "type": "string",
+      "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$"
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "CNAME",
+            "A",
+            "AAAA"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "name",
+        "description"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "terms": {
+      "type": "string",
+      "const": "Y"
+    }
+  }
+}
