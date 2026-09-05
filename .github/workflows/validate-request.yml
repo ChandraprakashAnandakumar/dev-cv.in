@@ -32,8 +32,25 @@ jobs:
         run: |
           python .github/workflows/check-duplicate.py
 
+        - name: Request owner check
+        run: |
+          python .github/workflows/check-request-owner.py
+
+      - name: PR author verification
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python .github/workflows/check-pr-author.py
+
+
+
+
       - name: Validate request
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python .github/workflows/validate_request.py
+          
+                 - name: Request owner check
+        run: |
+          python .github/workflows/check-request-owner.py
