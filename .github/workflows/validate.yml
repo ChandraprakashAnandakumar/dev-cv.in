@@ -15,8 +15,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout PR
         uses: actions/checkout@v5
+        with:
+          path: pr
+
+      - name: Checkout trusted main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          path: trusted
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -30,22 +38,31 @@ jobs:
 
       - name: Validate domain files
         run: |
-          python scripts/validate_domains.py
+          cp trusted/scripts/validate_domains.py /tmp/validate_domains.py
+          python /tmp/validate_domains.py
+        working-directory: pr
 
       - name: Validate request files
         run: |
-          python scripts/validate_requests.py
+          cp trusted/scripts/validate_requests.py /tmp/validate_requests.py
+          python /tmp/validate_requests.py
+        working-directory: pr
 
       - name: Test available subdomain
         run: |
-          python scripts/check_availability.py myproject
+          cp trusted/scripts/check_availability.py /tmp/check_availability.py
+          python /tmp/check_availability.py myproject
+        working-directory: pr
 
       - name: Test reserved subdomain
         run: |
-          if python scripts/check_availability.py admin; then
+          cp trusted/scripts/check_availability.py /tmp/check_availability.py
+
+          if python /tmp/check_availability.py admin; then
             echo "ERROR: Reserved subdomain was incorrectly accepted."
             exit 1
           fi
+        working-directory: pr
 
       - name: Test existing domain
         run: |
@@ -66,15 +83,17 @@ jobs:
           }
           EOF
 
-          if python scripts/check_availability.py ci-test; then
+          cp trusted/scripts/check_availability.py /tmp/check_availability.py
+
+          if python /tmp/check_availability.py ci-test; then
             echo "ERROR: Existing domain was incorrectly accepted."
             rm -f domains/ci-test.json
             exit 1
           fi
 
           rm -f domains/ci-test.json
+        working-directory: pr
 
       - name: Validation complete
         run: |
           echo "All dev-cv.in validation checks passed."
-
