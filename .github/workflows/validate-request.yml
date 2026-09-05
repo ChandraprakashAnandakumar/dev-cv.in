@@ -23,6 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyyaml requests dnspython
 
+      - name: Security check
+        run: |
+          python .github/workflows/check-pr-security.py
+
       - name: Validate request
         env:
           GH_TOKEN: ${{ github.token }}
