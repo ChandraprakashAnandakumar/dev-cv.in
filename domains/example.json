@@ -1,0 +1,14 @@
+{
+  "subdomain": "example",
+  "owner": {
+    "github": "ChandraprakashAnandakumar"
+  },
+  "target": {
+    "type": "CNAME",
+    "value": "example.vercel.app"
+  },
+  "project": {
+    "name": "Example Developer Project",
+    "description": "Test domain for the dev-cv.in registry."
+  }
+}

@@ -1,0 +1,16 @@
+www
+admin
+api
+data
+docs
+mail
+ftp
+ns1
+ns2
+status
+support
+help
+blog
+dev
+test
+staging
