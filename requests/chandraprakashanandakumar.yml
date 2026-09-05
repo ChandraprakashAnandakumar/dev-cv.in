@@ -1,0 +1,107 @@
+# dev-cv.in subdomain request schema
+#
+# Developers:
+# 1. Fork the official dev-cv.in repository
+# 2. Copy this file to:
+#      requests/<your-github-username>.yml
+# 3. Fill in the required fields
+# 4. Create a Pull Request
+#
+# Do NOT add passwords, API keys, Cloudflare tokens,
+# Vercel tokens, GitHub tokens, or other secrets.
+
+request:
+
+  # ==============================
+  # DEVELOPER INFORMATION
+  # ==============================
+
+  github_username: "chandraprakashanandakumar"
+
+  owner_name: "chandraprakash"
+
+  email: "chandraprakash170105@gmail.com"
+
+
+  # ==============================
+  # PROJECT INFORMATION
+  # ==============================
+
+  github_repository:
+    url: "https://github.com/ChandraprakashAnandakumar/dev-cv.in"
+
+    # Must be a repository controlled by the requesting GitHub account.
+    owner_confirmed: true
+
+
+  # ==============================
+  # VERCEL INFORMATION
+  # ==============================
+
+  vercel:
+    deployment_url: "https://portpholeo.vercel.app/"
+
+    # Developer confirms that they control this Vercel project.
+    ownership_confirmed: true
+
+
+  # ==============================
+  # SUBDOMAIN REQUEST
+  # ==============================
+
+  subdomain:
+    requested: "chandraprakashanandakumar.dev-cv.in"
+
+    # Only one subdomain is allowed per approved request.
+    type: "portfolio"
+
+
+  # ==============================
+  # PROJECT DESCRIPTION
+  # ==============================
+
+  project:
+    name: "My Developer Portfolio"
+
+    description: "Short description of my project."
+
+    category: "portfolio"
+
+
+  # ==============================
+  # REQUIRED AGREEMENTS
+  # ==============================
+
+  agreements:
+
+    # I control the GitHub repository submitted above.
+    github_ownership: true
+
+    # I control the Vercel deployment submitted above.
+    vercel_ownership: true
+
+    # I understand dev-cv.in provides DNS/subdomain mapping,
+    # not application hosting.
+    dns_only: true
+
+    # I will keep my deployment available and functional.
+    deployment_responsibility: true
+
+    # I will not use the subdomain for phishing, malware,
+    # spam, scams, illegal content, impersonation, etc.
+    acceptable_use: true
+
+    # I understand dev-cv.in may remove a subdomain
+    # that violates the rules.
+    removal_policy: true
+
+    # I agree that automated verification may inspect
+    # publicly available GitHub/Vercel information.
+    automated_verification: true
+
+    # I agree that one approved request represents
+    # one subdomain.
+    one_subdomain_per_request: true
+
+    # I have read and agree to the dev-cv.in rules.
+    terms: true
