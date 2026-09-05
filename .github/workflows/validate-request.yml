@@ -27,6 +27,11 @@ jobs:
         run: |
           python .github/workflows/check-pr-security.py
 
+
+       - name: Duplicate subdomain check
+        run: |
+          python .github/workflows/check-duplicate.py
+
       - name: Validate request
         env:
           GH_TOKEN: ${{ github.token }}
