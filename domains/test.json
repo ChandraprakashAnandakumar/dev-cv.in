@@ -1,0 +1,14 @@
+{
+  "subdomain": "test",
+  "owner": {
+    "github": "ChandraprakashAnandakumar"
+  },
+  "target": {
+    "type": "CNAME",
+    "value": "example.com"
+  },
+  "project": {
+    "name": "DNS Automation Test",
+    "description": "Temporary test record for Cloudflare DNS automation."
+  }
+}
