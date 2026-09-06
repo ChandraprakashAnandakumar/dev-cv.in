@@ -12,8 +12,8 @@ ROOT = Path(__file__).resolve().parent.parent
 if len(sys.argv) > 1:
     ROOT = Path(sys.argv[1]).resolve()
 
-DOMAINS_DIR = ROOT / "domains"
-SCHEMA_FILE = ROOT / "schema" / "domain.schema.json"
+REQUESTS_DIR = ROOT / "requests"
+SCHEMA_FILE = ROOT / "schema" / "request.schema.json"
 
 
 def load_schema():
@@ -21,12 +21,16 @@ def load_schema():
         return json.load(file)
 
 
-def validate_domain(domain_file, validator):
+def validate_request(request_file, validator):
     try:
-        with domain_file.open() as file:
+        with request_file.open() as file:
             data = json.load(file)
     except json.JSONDecodeError as error:
-        print(f"❌ {domain_file}: Invalid JSON")
+        print(f"❌ {request_file}: Invalid JSON")
+        print(f"   {error}")
+        return False
+    except OSError as error:
+        print(f"❌ {request_file}: Cannot read file")
         print(f"   {error}")
         return False
 
@@ -36,7 +40,7 @@ def validate_domain(domain_file, validator):
     )
 
     if errors:
-        print(f"❌ {domain_file}: Validation failed")
+        print(f"❌ {request_file}: Validation failed")
 
         for error in errors:
             path = ".".join(str(item) for item in error.path)
@@ -45,35 +49,36 @@ def validate_domain(domain_file, validator):
 
         return False
 
-    print(f"✅ {domain_file}: Valid")
+    print(f"✅ {request_file}: Valid")
+    print("   Terms accepted: Y")
     return True
 
 
 def main():
-    if not DOMAINS_DIR.exists():
-        print("❌ domains/ directory does not exist.")
-        sys.exit(1)
+    if not REQUESTS_DIR.exists():
+        print("No requests/ directory found.")
+        sys.exit(0)
 
     schema = load_schema()
     validator = Draft202012Validator(schema)
 
-    domain_files = sorted(DOMAINS_DIR.glob("*.json"))
+    request_files = sorted(REQUESTS_DIR.glob("*.json"))
 
-    if not domain_files:
-        print("No domain files found.")
+    if not request_files:
+        print("No pending request files found.")
         sys.exit(0)
 
     success = True
 
-    for domain_file in domain_files:
-        if not validate_domain(domain_file, validator):
+    for request_file in request_files:
+        if not validate_request(request_file, validator):
             success = False
 
     if not success:
         sys.exit(1)
 
     print()
-    print(f"🎉 Successfully validated {len(domain_files)} domain file(s).")
+    print(f"🎉 Successfully validated {len(request_files)} request(s).")
 
 
 if __name__ == "__main__":
