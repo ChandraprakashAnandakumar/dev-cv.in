@@ -51,7 +51,7 @@ jobs:
       - name: Test available subdomain
         run: |
           cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
-          python /tmp/check_availability.py myproject "$GITHUB_WORKSPACE/pr"
+          python /tmp/check_availability.py ci-test "$GITHUB_WORKSPACE/pr"
         working-directory: pr
 
       - name: Test reserved subdomain
