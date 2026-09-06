@@ -73,8 +73,8 @@ def check_availability(subdomain):
 def main():
     import sys
 
-    if len(sys.argv) != 2:
-        print("Usage: python3 scripts/check_availability.py <subdomain>")
+    if len(sys.argv) not in (2, 3):
+        print("Usage: python3 scripts/check_availability.py <subdomain> [root]")
         sys.exit(2)
 
     subdomain = sys.argv[1]
