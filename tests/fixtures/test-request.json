@@ -1,0 +1,13 @@
+{
+  "github_username": "ChandraprakashAnandakumar",
+  "subdomain": "testproject",
+  "target": {
+    "type": "CNAME",
+    "value": "testproject.vercel.app"
+  },
+  "project": {
+    "name": "Test Project",
+    "description": "Test request for dev-cv.in."
+  },
+  "terms": "Y"
+}

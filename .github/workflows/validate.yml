@@ -15,11 +15,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout PR
+        uses: actions/checkout@v5
+        with:
+          path: pr
+
+      - name: Checkout trusted main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          path: trusted
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -30,25 +38,61 @@ jobs:
 
       - name: Validate domain files
         run: |
-          python scripts/validate_domains.py
+          cp ../trusted/scripts/validate_domains.py /tmp/validate_domains.py
+          python /tmp/validate_domains.py "$GITHUB_WORKSPACE/pr"
+        working-directory: pr
+
+      - name: Validate request files
+        run: |
+          cp ../trusted/scripts/validate_requests.py /tmp/validate_requests.py
+          python /tmp/validate_requests.py "$GITHUB_WORKSPACE/pr"
+        working-directory: pr
 
       - name: Test available subdomain
         run: |
-          python scripts/check_availability.py myproject
+          cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
+          python /tmp/check_availability.py myproject "$GITHUB_WORKSPACE/pr"
+        working-directory: pr
 
       - name: Test reserved subdomain
         run: |
-          if python scripts/check_availability.py admin; then
+          cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
+
+          if python /tmp/check_availability.py admin "$GITHUB_WORKSPACE/pr"; then
             echo "ERROR: Reserved subdomain was incorrectly accepted."
             exit 1
           fi
+        working-directory: pr
 
       - name: Test existing domain
         run: |
-          if python scripts/check_availability.py example; then
+          cat > domains/ci-test.json <<'EOF'
+          {
+            "subdomain": "ci-test",
+            "owner": {
+              "github": "test-user"
+            },
+            "target": {
+              "type": "CNAME",
+              "value": "example.com"
+            },
+            "project": {
+              "name": "CI Test",
+              "description": "Temporary domain used only during CI validation."
+            }
+          }
+          EOF
+
+          cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
+
+          if python /tmp/check_availability.py ci-test "$GITHUB_WORKSPACE/pr"; then
             echo "ERROR: Existing domain was incorrectly accepted."
+            rm -f domains/ci-test.json
             exit 1
           fi
+
+          rm -f domains/ci-test.json
+        working-directory: pr
 
       - name: Validation complete
         run: |
