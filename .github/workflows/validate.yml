@@ -39,26 +39,26 @@ jobs:
       - name: Validate domain files
         run: |
           cp ../trusted/scripts/validate_domains.py /tmp/validate_domains.py
-          python /tmp/validate_domains.py
+          python /tmp/validate_domains.py "$GITHUB_WORKSPACE/pr"
         working-directory: pr
 
       - name: Validate request files
         run: |
           cp ../trusted/scripts/validate_requests.py /tmp/validate_requests.py
-          python /tmp/validate_requests.py
+          python /tmp/validate_requests.py "$GITHUB_WORKSPACE/pr"
         working-directory: pr
 
       - name: Test available subdomain
         run: |
-          cp trusted/scripts/check_availability.py /tmp/check_availability.py
-          python /tmp/check_availability.py myproject
+          cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
+          python /tmp/check_availability.py myproject "$GITHUB_WORKSPACE/pr"
         working-directory: pr
 
       - name: Test reserved subdomain
         run: |
-          cp trusted/scripts/check_availability.py /tmp/check_availability.py
+          cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
 
-          if python /tmp/check_availability.py admin; then
+          if python /tmp/check_availability.py admin "$GITHUB_WORKSPACE/pr"; then
             echo "ERROR: Reserved subdomain was incorrectly accepted."
             exit 1
           fi
@@ -85,7 +85,7 @@ jobs:
 
           cp trusted/scripts/check_availability.py /tmp/check_availability.py
 
-          if python /tmp/check_availability.py ci-test; then
+          if python /tmp/check_availability.py ci-test "$GITHUB_WORKSPACE/pr"; then
             echo "ERROR: Existing domain was incorrectly accepted."
             rm -f domains/ci-test.json
             exit 1

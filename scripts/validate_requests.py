@@ -8,6 +8,10 @@ from jsonschema import Draft202012Validator
 
 
 ROOT = Path(__file__).resolve().parent.parent
+
+if len(sys.argv) > 1:
+    ROOT = Path(sys.argv[1]).resolve()
+
 REQUESTS_DIR = ROOT / "requests"
 SCHEMA_FILE = ROOT / "schema" / "request.schema.json"
 
