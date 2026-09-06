@@ -2,10 +2,14 @@
 
 import json
 import re
+import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent.parent
+
+if len(sys.argv) > 2:
+    ROOT = Path(sys.argv[2]).resolve()
+
 DOMAINS_DIR = ROOT / "domains"
 REQUESTS_DIR = ROOT / "requests"
 RESERVED_FILE = ROOT / "config" / "reserved-subdomains.txt"
