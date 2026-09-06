@@ -26,12 +26,33 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate domain registry
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install jsonschema
+
+      - name: Validate domain registry
+        run: |
           python scripts/validate_domains.py
           python scripts/validate_requests.py
+
+      - name: Check Cloudflare credentials
+        env:
+          CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_ZONE_ID" ]; then
+            echo "❌ CLOUDFLARE_ZONE_ID is missing"
+            exit 1
+          fi
+
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "❌ CLOUDFLARE_API_TOKEN is missing"
+            exit 1
+          fi
+
+          echo "✅ CLOUDFLARE_ZONE_ID is available"
+          echo "✅ CLOUDFLARE_API_TOKEN is available"
 
       - name: Synchronize DNS with Cloudflare
         env:
@@ -42,4 +63,5 @@ jobs:
 
       - name: DNS synchronization complete
         run: |
-          echo "DNS synchronization workflow completed."
+          echo "✅ DNS synchronization workflow completed successfully."
+
