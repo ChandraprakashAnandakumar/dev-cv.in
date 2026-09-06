@@ -38,13 +38,13 @@ jobs:
 
       - name: Validate domain files
         run: |
-          cp trusted/scripts/validate_domains.py /tmp/validate_domains.py
+          cp../trusted/scripts/validate_domains.py /tmp/validate_domains.py
           python /tmp/validate_domains.py
         working-directory: pr
 
       - name: Validate request files
         run: |
-          cp trusted/scripts/validate_requests.py /tmp/validate_requests.py
+          cp../trusted/scripts/validate_requests.py /tmp/validate_requests.py
           python /tmp/validate_requests.py
         working-directory: pr
 
