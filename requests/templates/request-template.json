@@ -1,0 +1,13 @@
+{
+  "github_username": "YOUR_GITHUB_USERNAME",
+  "subdomain": "YOUR_SUBDOMAIN",
+  "target": {
+    "type": "CNAME",
+    "value": "YOUR_TARGET"
+  },
+  "project": {
+    "name": "YOUR_PROJECT_NAME",
+    "description": "YOUR_PROJECT_DESCRIPTION"
+  },
+  "terms": "Y"
+}
