@@ -1,0 +1,13 @@
+{
+  "github_username": "test-user",
+  "subdomain": "test-user-demo",
+  "target": {
+    "type": "CNAME",
+    "value": "example.com"
+  },
+  "project": {
+    "name": "Test User Demo",
+    "description": "Temporary request used to test the dev-cv.in request workflow."
+  },
+  "terms": "Y"
+}
