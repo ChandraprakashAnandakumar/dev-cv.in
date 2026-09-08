@@ -46,7 +46,7 @@ def is_allowed(path):
 
     return (
         len(pure_path.parts) == 2
-        and pure_path.parts[0] == ALLOWED_PREFIX
+        and pure_path.parts[0] == str(ALLOWED_PREFIX)
         and pure_path.parts[1].endswith(ALLOWED_SUFFIX)
         and pure_path.parts[1] != ALLOWED_SUFFIX
     )
