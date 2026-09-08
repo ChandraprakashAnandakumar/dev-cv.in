@@ -1,0 +1,14 @@
+{
+  "subdomain": "chandraprakashanandakumar",
+  "owner": {
+    "github": "ChandraprakashAnandakumar"
+  },
+  "target": {
+    "type": "CNAME",
+    "value": "93888a1f0affd1a5.vercel-dns-017.com"
+  },
+  "project": {
+    "name": "Chandra Prakash Portfolio",
+    "description": "Personal developer portfolio hosted on Vercel."
+  }
+}
