@@ -1,0 +1,13 @@
+{
+  "github_username": "ChandraprakashAnandakumar",
+  "subdomain": "chandra-test-02",
+  "target": {
+    "type": "CNAME",
+    "value": "example.com"
+  },
+  "project": {
+    "name": "Second End-to-End Test",
+    "description": "Temporary request used to verify the complete dev-cv.in subdomain request workflow."
+  },
+  "terms": "Y"
+}
