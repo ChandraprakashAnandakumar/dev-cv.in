@@ -19,12 +19,14 @@ jobs:
         uses: actions/checkout@v5
         with:
           path: pr
+          fetch-depth: 0
 
       - name: Checkout trusted main
         uses: actions/checkout@v5
         with:
           ref: main
           path: trusted
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -35,6 +37,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install jsonschema
+
+      - name: Check allowed PR changes
+        run: |
+          cp ../trusted/scripts/check_pr_changes.py /tmp/check_pr_changes.py
+          python /tmp/check_pr_changes.py "${{ github.event.pull_request.base.sha }}"
+        working-directory: pr
 
       - name: Validate domain files
         run: |
@@ -66,7 +74,7 @@ jobs:
 
       - name: Test existing domain
         run: |
-          cat > domains/ci-test.json <<'EOF'
+          cat > domains/ci-test.json <<'JSON'
           {
             "subdomain": "ci-test",
             "owner": {
@@ -81,7 +89,7 @@ jobs:
               "description": "Temporary domain used only during CI validation."
             }
           }
-          EOF
+          JSON
 
           cp ../trusted/scripts/check_availability.py /tmp/check_availability.py
 
