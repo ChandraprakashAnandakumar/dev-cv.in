@@ -1,0 +1,13 @@
+{
+  "github_username": "karthikeyan",
+  "subdomain": "karthikeyan.dev-cv.in",
+  "target": {
+    "type": "CNAME",
+    "value": "4046990e77e63b7f.vercel-dns-017.com."
+  },
+  "project": {
+    "name": "My Portfolio",
+    "description": "My personal developer portfolio"
+  },
+  "terms": "Y"
+}
